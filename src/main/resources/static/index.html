@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservicio de Cursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            color: #007bff;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Microservicio de Cursos</h1>
+<!-- Botón para mostrar todos los cursos -->
+<button onclick="cargarTodosLosCursos()">Mostrar Todos</button>
+<!-- Resultado de las operaciones -->
+<div id="resultado"></div>
+<!-- Formulario para crear un nuevo curso -->
+<form id="crearCursoForm">
+    <h2>Crear Nuevo Curso</h2>
+    <label for="nombre">Nombre del Curso:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <br>
+    <label for="categoria">Categoría del Curso:</label>
+    <input type="text" id="categoria" name="categoria" required>
+    <br>
+    <button type="button" onclick="crearCurso()">Crear Curso</button>
+</form>
+
+<!-- Formulario para obtener un curso por ID -->
+<form id="obtenerCursoForm">
+    <h2>Obtener Curso por ID</h2>
+    <label for="idObtener">ID del Curso:</label>
+    <input type="number" id="idObtener" name="idObtener" required>
+    <br>
+    <button type="button" onclick="obtenerCursoPorId()">Obtener Curso</button>
+</form>
+
+<!-- Formulario para actualizar un curso por ID -->
+<form id="actualizarCursoForm">
+    <h2>Actualizar Curso por ID</h2>
+    <label for="idActualizar">ID del Curso:</label>
+    <input type="number" id="idActualizar" name="idActualizar" required>
+    <br>
+    <label for="nombreActualizar">Nuevo Nombre del Curso:</label>
+    <input type="text" id="nombreActualizar" name="nombreActualizar" required>
+    <br>
+    <label for="categoriaActualizar">Nueva Categoría del Curso:</label>
+    <input type="text" id="categoriaActualizar" name="categoriaActualizar" required>
+    <br>
+    <button type="button" onclick="actualizarCurso()">Actualizar Curso</button>
+</form>
+
+<!-- Formulario para eliminar un curso por ID -->
+<form id="eliminarCursoForm">
+    <h2>Eliminar Curso por ID</h2>
+    <label for="idEliminar">ID del Curso:</label>
+    <input type="number" id="idEliminar" name="idEliminar" required>
+    <br>
+    <button type="button" onclick="eliminarCurso()">Eliminar Curso</button>
+</form>
+
+<!-- Resultado de las operaciones -->
+<div id="resultado"></div>
+
+<script>
+    // Función para cargar todos los cursos al cargar la página
+    window.onload = function () {
+        cargarTodosLosCursos();
+    };
+
+    // Función para enviar una solicitud GET para obtener todos los cursos
+    function cargarTodosLosCursos() {
+        fetch('http://localhost:8080/cursos')
+            .then(response => response.json())
+            .then(data => {
+                mostrarCursos(data);
+            })
+            .catch(error => {
+                console.error('Error al cargar los cursos:', error);
+            });
+    }
+
+    // Función para mostrar todos los cursos en el resultado
+    function mostrarCursos(cursos) {
+        const resultadoDiv = document.getElementById('resultado');
+        resultadoDiv.innerHTML = '<h2>Todos los Cursos:</h2>';
+        
+        if (cursos.length > 0) {
+            cursos.forEach(curso => {
+                resultadoDiv.innerHTML += `<p>ID: ${curso.id}, Nombre: ${curso.nombre}, Categoría: ${curso.categoria}</p>`;
+            });
+        } else {
+            resultadoDiv.innerHTML += '<p>No hay cursos disponibles.</p>';
+        }
+    }
+
+    // Función para enviar una solicitud POST al crear un nuevo curso
+    function crearCurso() {
+        const nombre = document.getElementById('nombre').value;
+        const categoria = document.getElementById('categoria').value;
+
+        fetch('http://localhost:8080/cursos/crear', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nombre, categoria }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('resultado').innerHTML = `<p>Curso creado con éxito. ID: ${data.id}</p>`;
+        })
+        .catch(error => {
+            console.error('Error al crear el curso:', error);
+            document.getElementById('resultado').innerHTML = '<p>Error al crear el curso.</p>';
+        });
+    }
+
+    // Función para enviar una solicitud GET al obtener un curso por ID
+    function obtenerCursoPorId() {
+        const id = document.getElementById('idObtener').value;
+
+        fetch(`http://localhost:8080/cursos/${id}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Curso no encontrado');
+            }
+        })
+        .then(data => {
+            document.getElementById('resultado').innerHTML = `<p>Curso encontrado: ${data.nombre}, ${data.categoria}</p>`;
+        })
+        .catch(error => {
+            console.error('Error al obtener el curso por ID:', error);
+            document.getElementById('resultado').innerHTML = '<p>Error al obtener el curso por ID.</p>';
+        });
+    }
+
+    // Función para enviar una solicitud PUT al actualizar un curso por ID
+    function actualizarCurso() {
+        const id = document.getElementById('idActualizar').value;
+        const nombre = document.getElementById('nombreActualizar').value;
+        const categoria = document.getElementById('categoriaActualizar').value;
+
+        fetch(`http://localhost:8080/cursos/actualizar/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nombre, categoria }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('resultado').innerHTML = `<p>Curso actualizado con éxito. ID: ${data.id}</p>`;
+        })
+        .catch(error => {
+            console.error('Error al actualizar el curso:', error);
+            document.getElementById('resultado').innerHTML = '<p>Error al actualizar el curso.</p>';
+        });
+    }
+
+    // Función para enviar una solicitud DELETE al eliminar un curso por ID
+    function eliminarCurso() {
+        const id = document.getElementById('idEliminar').value;
+
+        fetch(`http://localhost:8080/cursos/eliminar/${id}`, {
+            method: 'DELETE',
+        })
+        .then(() => {
+            document.getElementById('resultado').innerHTML = '<p>Curso eliminado con éxito.</p>';
+        })
+        .catch(error => {
+            console.error('Error al eliminar el curso:', error);
+            document.getElementById('resultado').innerHTML = '<p>Error al eliminar el curso.</p>';
+        });
+    }
+</script>
+
+</body>
+</html>
