@@ -1,5 +1,5 @@
- Gestión de Usuarios: 
+Catálogo de Cursos: 
 
-Desarrolla un microservicio separado para la gestión de usuarios. 
+Implementa un microservicio que maneje un catálogo de cursos. 
 
-Permite la creación, actualización, eliminación y recuperación de información de usuario. 
+Incluye operaciones como obtener la lista de cursos, obtener detalles de un curso específico y buscar cursos por categoría. 
