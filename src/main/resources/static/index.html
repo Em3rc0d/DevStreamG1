@@ -115,7 +115,7 @@
 
     // Función para enviar una solicitud GET para obtener todos los cursos
     function cargarTodosLosCursos() {
-        fetch('http://localhost:8080/cursos')
+        fetch('http://localhost:1010/cursos')
             .then(response => response.json())
             .then(data => {
                 mostrarCursos(data);
@@ -139,17 +139,19 @@
         }
     }
 
-    // Función para enviar una solicitud POST al crear un nuevo curso
+        // Función para enviar una solicitud POST al crear un nuevo curso
     function crearCurso() {
-        const nombre = document.getElementById('nombre').value;
-        const categoria = document.getElementById('categoria').value;
+        const nuevoCurso = {
+            nombre: document.getElementById('nombre').value,
+            categoria: document.getElementById('categoria').value
+        };
 
         fetch('http://localhost:8080/cursos/crear', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ nombre, categoria }),
+            body: JSON.stringify(nuevoCurso),
         })
         .then(response => response.json())
         .then(data => {

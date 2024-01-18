@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @SpringBootApplication
 @ComponentScan("microservice_catalogo.catalogo_application")
 public class CatalogoCursosApplication {
+    
     public static void main(String[] args) {
         SpringApplication.run(CatalogoCursosApplication.class, args);
     }
