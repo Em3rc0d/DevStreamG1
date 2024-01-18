@@ -2,7 +2,7 @@ package microservice_usuarios.gestion_application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-// import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class GestionApplication {
@@ -11,8 +11,8 @@ public class GestionApplication {
 		SpringApplication.run(GestionApplication.class, args);
 	}
 
-	// @GetMapping
-	// public String index(){
-	// 	return "index";
-	// }
+	@GetMapping
+	public String index(){
+		return "index";
+	}
 }

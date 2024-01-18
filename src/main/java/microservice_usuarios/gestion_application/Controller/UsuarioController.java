@@ -31,19 +31,19 @@ public class UsuarioController {
         return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario nuevoUsuario) {
         Usuario usuarioGuardado = usuarioService.crearUsuario(nuevoUsuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioGuardado);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioActualizado) {
         Optional<Usuario> usuario = usuarioService.actualizarUsuario(id, usuarioActualizado);
         return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
         boolean eliminado = usuarioService.eliminarUsuario(id);
         return eliminado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();

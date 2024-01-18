@@ -1,248 +1,190 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Cursos</title>
+    <title>Gestión de Usuarios</title>
+    <!-- Agrega tus estilos CSS aquí -->
 
     <style>
-        /* Estilos (puedes personalizarlos según tus preferencias) */
+        /* Agrega estilos según tus preferencias */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1, h2 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f7f7f7;
             color: #333;
         }
 
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+        h1 {
+            color: #007bff;
         }
 
         button {
-            background-color: #4caf50;
-            color: #fff;
+            margin-top: 10px;
             padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
         }
 
-        button:hover {
-            background-color: #45a049;
+        label {
+            margin-top: 10px;
+            display: block;
+            font-size: 16px;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            background-color: #fff;
-            padding: 10px;
+        input {
             margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Gestión de Cursos</h1>
 
-    <!-- Botón para mostrar todos los cursos -->
-    <button onclick="cargarTodosLosCursos()">Mostrar Todos</button>
+<h1>Gestión de Usuarios</h1>
 
-    <!-- Resultado de las operaciones -->
-    <div id="resultado"></div>
+<!-- Obtener todos los usuarios -->
+<button onclick="obtenerTodosLosUsuarios()">Obtener Todos los Usuarios</button>
 
-    <!-- Formulario para crear un nuevo curso -->
-    <form id="crearCursoForm">
-        <h2>Crear Nuevo Curso</h2>
-        <label for="nombre">Nombre del Curso:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <br>
-        <label for="categoria">Categoría del Curso:</label>
-        <input type="text" id="categoria" name="categoria" required>
-        <br>
-        <button type="button" onclick="crearCurso()">Crear Curso</button>
-    </form>
+<!-- Obtener usuario por ID -->
+<label for="userId">ID del Usuario:</label>
+<input type="text" id="userId">
+<button onclick="obtenerUsuarioPorId()">Obtener Usuario por ID</button>
 
-    <!-- Formulario para obtener un curso por ID -->
-    <form id="obtenerCursoForm">
-        <h2>Obtener Curso por ID</h2>
-        <label for="idObtener">ID del Curso:</label>
-        <input type="number" id="idObtener" name="idObtener" required>
-        <br>
-        <button type="button" onclick="obtenerCursoPorId()">Obtener Curso</button>
-    </form>
+<!-- Crear nuevo usuario -->
+<h2>Crear Nuevo Usuario</h2>
+<label for="nombre">Nombre:</label>
+<input type="text" id="nombre">
+<label for="apellido">Apellido:</label>
+<input type="text" id="apellido">
+<label for="edad">Edad:</label>
+<input type="number" id="edad">
+<button onclick="crearUsuario()">Crear Usuario</button>
 
-    <!-- Formulario para actualizar un curso por ID -->
-    <form id="actualizarCursoForm">
-        <h2>Actualizar Curso por ID</h2>
-        <label for="idActualizar">ID del Curso:</label>
-        <input type="number" id="idActualizar" name="idActualizar" required>
-        <br>
-        <label for="nombreActualizar">Nuevo Nombre del Curso:</label>
-        <input type="text" id="nombreActualizar" name="nombreActualizar" required>
-        <br>
-        <label for="categoriaActualizar">Nueva Categoría del Curso:</label>
-        <input type="text" id="categoriaActualizar" name="categoriaActualizar" required>
-        <br>
-        <button type="button" onclick="actualizarCurso()">Actualizar Curso</button>
-    </form>
+<!-- Actualizar usuario por ID -->
+<h2>Actualizar Usuario por ID</h2>
+<label for="updateUserId">ID del Usuario a actualizar:</label>
+<input type="text" id="updateUserId">
+<label for="updateNombre">Nuevo Nombre:</label>
+<input type="text" id="updateNombre">
+<label for="updateApellido">Nuevo Apellido:</label>
+<input type="text" id="updateApellido">
+<label for="updateEdad">Nueva Edad:</label>
+<input type="number" id="updateEdad">
+<button onclick="actualizarUsuario()">Actualizar Usuario</button>
 
-    <!-- Formulario para eliminar un curso por ID -->
-    <form id="eliminarCursoForm">
-        <h2>Eliminar Curso por ID</h2>
-        <label for="idEliminar">ID del Curso:</label>
-        <input type="number" id="idEliminar" name="idEliminar" required>
-        <br>
-        <button type="button" onclick="eliminarCurso()">Eliminar Curso</button>
-    </form>
+<!-- Eliminar usuario por ID -->
+<h2>Eliminar Usuario por ID</h2>
+<label for="deleteUserId">ID del Usuario a eliminar:</label>
+<input type="text" id="deleteUserId">
+<button onclick="eliminarUsuario()">Eliminar Usuario</button>
 
-    <!-- Resultado de las operaciones -->
-    <div id="resultado"></div>
+<!-- Resultado de las peticiones -->
+<div id="result"></div>
 
-    <script>
-        window.onload = mostrarTodosLosUsuarios;
+<!-- Agrega tus scripts JavaScript aquí para manejar las peticiones HTTP -->
+<script>
+    const apiUrl = "http://localhost:9090/api/usuarios";
 
-        // Función para mostrar todos los usuarios
-        function mostrarTodosLosUsuarios() {
-            fetch('http://localhost:puerto/api/usuarios')
-                .then(response => response.json())
-                .then(usuarios => {
-                    document.getElementById('listaUsuarios').innerHTML = '';
-                    usuarios.forEach(usuario => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${usuario.nombre} ${usuario.apellido} - Edad: ${usuario.edad}`;
+    function mostrarResultado(mensaje) {
+    // const resultDiv = document.getElementById("result");
+    // resultDiv.innerHTML = `<p>${mensaje}</p>`;
 
-                        const updateButton = document.createElement('button');
-                        updateButton.textContent = 'Actualizar';
-                        updateButton.onclick = () => mostrarFormularioActualizar(usuario.id);
-                        listItem.appendChild(updateButton);
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = ` <p> ${mensaje} </p>`;
 
-                        const deleteButton = document.createElement('button');
-                        deleteButton.textContent = 'Eliminar';
-                        deleteButton.onclick = () => eliminarUsuario(usuario.id);
-                        listItem.appendChild(deleteButton);
+    }
 
-                        document.getElementById('listaUsuarios').appendChild(listItem);
-                    });
-                })
-                .catch(error => console.error('Error al obtener usuarios:', error));
-        }
-
-        // Función para crear un nuevo usuario
-        function crearUsuario() {
-            const nuevoUsuario = {
-                nombre: document.getElementById('nombre').value,
-                apellido: document.getElementById('apellido').value,
-                edad: parseInt(document.getElementById('edad').value)
-            };
-
-            fetch('http://localhost:puerto/api/usuarios', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(nuevoUsuario)
-            })
+    function obtenerTodosLosUsuarios() {
+        fetch(apiUrl)
             .then(response => response.json())
-            .then(usuarioCreado => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${usuarioCreado.nombre} ${usuarioCreado.apellido} - Edad: ${usuarioCreado.edad}`;
+            .then(data => mostrarResultado(JSON.stringify(data)))
+            .catch(error => mostrarResultado(`Error: ${error.message}`));
+    }
 
-                const updateButton = document.createElement('button');
-                updateButton.textContent = 'Actualizar';
-                updateButton.onclick = () => mostrarFormularioActualizar(usuarioCreado.id);
-                listItem.appendChild(updateButton);
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Eliminar';
-                deleteButton.onclick = () => eliminarUsuario(usuarioCreado.id);
-                listItem.appendChild(deleteButton);
-
-                document.getElementById('listaUsuarios').appendChild(listItem);
-            })
-            .catch(error => console.error('Error al crear usuario:', error));
-        }
-
-        // Función para mostrar el formulario de actualización
-        function mostrarFormularioActualizar(id) {
-            fetch(`http://localhost:puerto/api/usuarios/${id}`)
-                .then(response => response.json())
-                .then(usuario => {
-                    document.getElementById('nombre').value = usuario.nombre;
-                    document.getElementById('apellido').value = usuario.apellido;
-                    document.getElementById('edad').value = usuario.edad;
-
-                    const actualizarButton = document.createElement('button');
-                    actualizarButton.textContent = 'Actualizar Usuario';
-                    actualizarButton.onclick = () => actualizarUsuario(id);
-                    document.getElementById('formularioNuevoUsuario').appendChild(actualizarButton);
-                })
-                .catch(error => console.error('Error al obtener usuario por ID:', error));
-        }
-
-        // Función para actualizar un usuario existente
-        function actualizarUsuario(id) {
-            const usuarioActualizado = {
-                nombre: document.getElementById('nombre').value,
-                apellido: document.getElementById('apellido').value,
-                edad: parseInt(document.getElementById('edad').value)
-            };
-
-            fetch(`http://localhost:puerto/api/usuarios/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usuarioActualizado)
-            })
+    function obtenerUsuarioPorId() {
+        const userId = document.getElementById("userId").value;
+        fetch(`${apiUrl}/${userId}`)
             .then(response => response.json())
-            .then(usuarioActualizado => {
-                mostrarTodosLosUsuarios();
-            })
-            .catch(error => console.error('Error al actualizar usuario:', error));
+            .then(data => mostrarResultado(JSON.stringify(data)))
+            .catch(error => mostrarResultado(`Error: ${error.message}`));
+    }
 
-            document.getElementById('formularioNuevoUsuario').reset();
-            document.getElementById('formularioNuevoUsuario').removeChild(document.getElementById('formularioNuevoUsuario').lastChild);
-        }
+    function crearUsuario() {
+        const nombre = document.getElementById("nombre").value;
+        const apellido = document.getElementById("apellido").value;
+        const edad = document.getElementById("edad").value;
 
-        // Función para eliminar un usuario
-        function eliminarUsuario(id) {
-            fetch(`http://localhost:puerto/api/usuarios/${id}`, {
-                method: 'DELETE'
-            })
-            .then(response => {
-                mostrarTodosLosUsuarios();
-            })
-            .catch(error => console.error('Error al eliminar usuario:', error));
-        }
+        const nuevoUsuario = {
+            nombre: nombre,
+            apellido: apellido,
+            edad: edad
+        };
 
-        
-    </script>
+        fetch(`${apiUrl}/crear`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(nuevoUsuario)
+        })
+        .then(response => response.json())
+        .then(data => mostrarResultado(JSON.stringify(data)))
+        .catch(error => mostrarResultado(`Error: ${error.message}`));
+    }
+
+    function actualizarUsuario() {
+        const updateUserId = document.getElementById("updateUserId").value;
+        const updateNombre = document.getElementById("updateNombre").value;
+        const updateApellido = document.getElementById("updateApellido").value;
+        const updateEdad = document.getElementById("updateEdad").value;
+
+        const usuarioActualizado = {
+            nombre: updateNombre,
+            apellido: updateApellido,
+            edad: updateEdad
+        };
+
+        fetch(`${apiUrl}/actualizar/${updateUserId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuarioActualizado)
+        })
+        .then(response => response.json())
+        .then(data => mostrarResultado(JSON.stringify(data)))
+        .catch(error => mostrarResultado(`Error: ${error.message}`));
+    }
+
+    function eliminarUsuario() {
+        const deleteUserId = document.getElementById("deleteUserId").value;
+
+        fetch(`${apiUrl}/eliminar/${deleteUserId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                mostrarResultado("Usuario eliminado con éxito");
+            } else {
+                mostrarResultado("Error al eliminar el usuario");
+            }
+        })
+        .catch(error => mostrarResultado(`Error: ${error.message}`));
+    }
+</script>
 </body>
 </html>
