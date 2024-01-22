@@ -1,9 +1,7 @@
 package microservice_catalogo.catalogo_application.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,44 +20,53 @@ import microservice_catalogo.catalogo_application.CursoService.CursoService;
 @RequestMapping("/cursos")
 public class CursoController {
 
-    @Autowired
-    private CursoService cursoService;
+    private final CursoService cursoService;
+
+    CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Curso>> obtenerListaCursos() {
         List<Curso> cursos = cursoService.obtenerTodosLosCursos();
-        return new ResponseEntity<>(cursos, HttpStatus.OK);
+        return ResponseEntity.ok(cursos);
     }
 
     @GetMapping("/{id}")
-public ResponseEntity<Curso> obtenerCursoPorCategoria(@PathVariable Long id) {
-    Optional<Curso> cursoOptional = cursoService.obtenerCursoPorId(id);
-
-    if (cursoOptional.isPresent()) {
-        Curso curso = cursoOptional.get();
-        return new ResponseEntity<>(curso, HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Curso> obtenerCursoPorCategoria(@PathVariable Long id) {
+        return cursoService.obtenerCursoPorId(id)
+                .map(curso -> new ResponseEntity<>(curso, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-}
 
 
     @PostMapping("/crear")
     public ResponseEntity<Curso> crearCurso(@RequestBody Curso nuevoCurso) {
-        Curso cursoCreado = cursoService.crearCurso(nuevoCurso);
-        return new ResponseEntity<>(cursoCreado, HttpStatus.CREATED);
+        try {
+            Curso cursoCreado = cursoService.crearCurso(nuevoCurso);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cursoCreado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @RequestBody Curso cursoActualizado) {
-        Curso cursoActualizadoResultado = cursoService.actualizarCurso(id, cursoActualizado);
-        return new ResponseEntity<>(cursoActualizadoResultado, HttpStatus.OK);
+        try {
+            Curso cursoActualizadoResultado = cursoService.actualizarCurso(id, cursoActualizado);
+            return ResponseEntity.ok(cursoActualizadoResultado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
-
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarCurso(@PathVariable Long id) {
-        cursoService.eliminarCurso(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            cursoService.eliminarCurso(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
