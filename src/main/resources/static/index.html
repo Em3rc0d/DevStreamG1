@@ -55,7 +55,6 @@
 <body>
 
 <h1>Microservicio de Cursos</h1>
-<!-- Botón para mostrar todos los cursos -->
 <button onclick="cargarTodosLosCursos()">Mostrar Todos</button>
 <!-- Resultado de las operaciones -->
 <div id="resultado"></div>
@@ -115,7 +114,7 @@
 
     // Función para enviar una solicitud GET para obtener todos los cursos
     function cargarTodosLosCursos() {
-        fetch('http://localhost:1010/cursos')
+        fetch('http://localhost:8080/cursos')
             .then(response => response.json())
             .then(data => {
                 mostrarCursos(data);

@@ -1,6 +1,7 @@
 package microservice_catalogo.catalogo_application.CursoService;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,12 +12,9 @@ import microservice_catalogo.catalogo_application.repository.CursoRepository;
 
 @Service
 public class CursoService {
-
-    private final CursoRepository cursoRepository;
-
-    CursoService(CursoRepository cursoRepository) {
-        this.cursoRepository = cursoRepository;
-    }
+ 
+     @Autowired
+    private CursoRepository cursoRepository;
 
     public List<Curso> obtenerTodosLosCursos() {
         return cursoRepository.findAll();
@@ -46,5 +44,4 @@ public class CursoService {
     public Curso crearCurso(Curso nuevoCurso) {
         return cursoRepository.save(nuevoCurso);
     }
-
 }
