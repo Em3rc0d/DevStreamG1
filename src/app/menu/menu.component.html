@@ -8,14 +8,14 @@
       <a href="#">Lecciones</a>
     </li>
     <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="#">Mi Cuenta</a>
+      <a href="#" (click)="Mostrar = !Mostrar">Mi Cuenta</a>
       <ul class="ml-4">
-        <li><a href="#">Perfil</a></li>
-        <li><a href="#">Mis Lecciones</a></li>
-        <li><a href="#">Mis Evaluaciones</a></li>
-        <li><a href="#">Editar Información</a></li>
-        <li><a href="#">Contraseña</a></li>
-        <li><a href="#">Salir</a></li>
+        <li *ngIf="Mostrar"><a href="#">Perfil</a></li>
+        <li *ngIf = "Mostrar"><a href="#">Mis Lecciones</a></li>
+        <li *ngIf = "Mostrar"><a href="#">Mis Evaluaciones</a></li>
+        <li *ngIf = "Mostrar"><a href="#">Editar Información</a></li>
+        <li *ngIf = "Mostrar"><a href="#">Contraseña</a></li>
+        <li *ngIf = "Mostrar"><a href="#">Salir</a></li>
       </ul>
     </li>
   </ul>
