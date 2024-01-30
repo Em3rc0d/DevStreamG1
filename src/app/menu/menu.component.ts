@@ -12,4 +12,5 @@ import { CommonModule } from '@angular/common';
 })
 export class MenuComponent {
   Mostrar: boolean = false;
+  Show: boolean = false;
 }

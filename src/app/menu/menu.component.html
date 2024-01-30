@@ -3,22 +3,28 @@
     <h1 class="text-2xl font-bold">Menú</h1>
   </div>
   <ul class="flex-1 overflow-y-auto">
-    <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="/login">Home</a>
+    <li class="p-4 hover:bg-gray-800 cursor-pointer" *ngIf="!Show">
+      <a href="#" (click)="Show = !Show">Iniciar Sesión</a>
     </li>
     <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="#">Lecciones</a>
+      <a href="/login" *ngIf="Show">Home</a>
     </li>
     <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="#" (click)="Mostrar = !Mostrar">Mi Cuenta</a>
+      <a href="#"*ngIf="Show">Lecciones</a>
+    </li>
+    <li class="p-4 hover:bg-gray-800 cursor-pointer">
+      <a href="#" (click)="Mostrar = !Mostrar" *ngIf="Show">Mi Cuenta</a>
       <ul class="ml-4">
-        <li *ngIf="Mostrar"><a href="#">Perfil</a></li>
-        <li *ngIf="Mostrar"><a href="#">Mis Lecciones</a></li>
-        <li *ngIf="Mostrar"><a href="#">Mis Evaluaciones</a></li>
-        <li *ngIf="Mostrar"><a href="#">Editar Información</a></li>
-        <li *ngIf="Mostrar"><a href="#">Contraseña</a></li>
-        <li *ngIf="Mostrar"><a href="#">Salir</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="#">Perfil</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="#">Mis Lecciones</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="#">Mis Evaluaciones</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="#">Editar Información</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="#">Contraseña</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="#">Salir</a></li>
       </ul>
+    </li>
+    <li class="p-4 hover:bg-gray-800 cursor-pointer">
+      <a href="#" *ngIf="Show" (click)="Show = !Show">Cerrar Sesión</a>
     </li>
   </ul>
 </div>
