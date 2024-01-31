@@ -4,20 +4,20 @@ import { MenuComponent } from './menu/menu.component';
 import { LeccionesComponent } from './lecciones/lecciones.component';
 import { LoginComponent } from './login/login.component';
 export const routes: Routes = [
-    {
-        path: '',
-        component: HomeComponent
-    },
-    {
-        path: 'menu',
-        component: MenuComponent
-    },
-    {
-        path: 'lecciones',
-        component: LeccionesComponent
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    }
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'menu',
+    component: MenuComponent,
+  },
+  {
+    path: 'lecciones',
+    component: LeccionesComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
 ];
