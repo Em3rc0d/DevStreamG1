@@ -9,7 +9,7 @@
   />
   <ul class="flex-1 overflow-y-auto">
     <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="#" class="flex">
+      <a href="/home" class="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -27,7 +27,7 @@
       </a>
     </li>
     <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="#" class="flex">
+      <a href="/home" class="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -46,7 +46,7 @@
       >
     </li>
     <li class="p-4 hover:bg-gray-800 cursor-pointer">
-      <a href="#" (click)="Mostrar = !Mostrar" class="flex">
+      <a href="/home" (click)="Mostrar = !Mostrar" class="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -64,12 +64,12 @@
         Mi Cuenta</a
       >
       <ul class="ml-4" *ngIf="Show">
-        <li *ngIf="Mostrar" class="mt-2"><a href="#">Perfil</a></li>
-        <li *ngIf="Mostrar" class="mt-2"><a href="#">Mis Lecciones</a></li>
-        <li *ngIf="Mostrar" class="mt-2"><a href="#">Mis Evaluaciones</a></li>
-        <li *ngIf="Mostrar" class="mt-2"><a href="#">Editar Información</a></li>
-        <li *ngIf="Mostrar" class="mt-2"><a href="#">Contraseña</a></li>
-        <li *ngIf="Mostrar" class="mt-2"><a href="#">Salir</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="/home">Perfil</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="/home">Mis Lecciones</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="/home">Mis Evaluaciones</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="/home">Editar Información</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="/home">Contraseña</a></li>
+        <li *ngIf="Mostrar" class="mt-2"><a href="/home">Salir</a></li>
       </ul>
     </li>
     <li class="p-4 hover:bg-gray-800 cursor-pointer">

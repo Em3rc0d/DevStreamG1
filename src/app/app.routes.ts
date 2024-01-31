@@ -5,7 +5,7 @@ import { LeccionesComponent } from './lecciones/lecciones.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register/register.component';
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' }, 
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, 
   {
     path: 'login',
     component: LoginComponent,
