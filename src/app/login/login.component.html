@@ -99,7 +99,7 @@
           <button
             class="h-10 w-30 hover:bg-blue-1000 rounded-3xl px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-1"
           >
-            Iniciar Sesión
+            <a href="/home">Iniciar Sesión</a>  
           </button>
           <div
             *ngIf="formSubmitted && form.controls['email'].invalid"
@@ -116,7 +116,7 @@
         </nav>
         <section>
           <a
-            href="#"
+            href="/register"
             class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
             >No tienes una cuenta?. Crea una aquí</a
           >

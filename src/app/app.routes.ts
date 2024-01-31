@@ -3,10 +3,12 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { LeccionesComponent } from './lecciones/lecciones.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register/register.component';
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, 
   {
-    path: '',
-    component: HomeComponent,
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'menu',
@@ -17,7 +19,11 @@ export const routes: Routes = [
     component: LeccionesComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'home',
+    component: HomeComponent,
   },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  }
 ];
