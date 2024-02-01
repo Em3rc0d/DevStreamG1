@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HomeComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -20,7 +21,6 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
-
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
