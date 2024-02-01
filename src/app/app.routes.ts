@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { MenuComponent } from './menu/menu.component';
-import { LeccionesComponent } from './lecciones/lecciones.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './login/register/register.component';
+import { HomeComponent } from './modules/home/home.component';
+import { MenuComponent } from './modules/menu/menu.component';
+import { LeccionesComponent } from './modules/lecciones/lecciones.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, 
   {

@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from '../../modules/home/home.component';
 
 @Component({
   selector: 'app-login',
