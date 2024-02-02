@@ -9,4 +9,6 @@ import { CategoriesComponent } from '../categories/categories.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  user: string = 'EstudianteA';
+}
